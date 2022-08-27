@@ -4,5 +4,4 @@
 
 body {
     font-family: "Nunito", sans-serif;
-    @apply my-5 lg:flex lg:items-center lg:justify-center lg:h-screen;
 }

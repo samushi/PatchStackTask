@@ -24,7 +24,7 @@ class VullnerabilitiesController extends Controller
      */
     public function create()
     {
-        //
+        return view('Vullnerabilities::create');
     }
 
     /**
@@ -59,7 +59,9 @@ class VullnerabilitiesController extends Controller
      */
     public function edit(Vullnerabilitie $vullnerability)
     {
-        //
+        abort_if(!$vullnerability, 404);
+
+        return view('Vullnerabilities::edit')->with("vullnerability", $vullnerability);
     }
 
     /**
@@ -82,6 +84,7 @@ class VullnerabilitiesController extends Controller
      */
     public function destroy(Vullnerabilitie $vullnerability)
     {
-        //
+        // dd($vullnerability->toArray());
+        return true;
     }
 }
