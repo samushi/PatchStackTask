@@ -27,3 +27,13 @@ test('check if vullnerability exist', function(){
 test('check if vullnerability not exits', function(){
     $this->get(route('vullnerabilities.show', 0))->assertStatus(404);
 });
+
+it('will be deleted', function(){
+    $item = Vullnerabilitie::first();
+
+    $this->delete(route('vullnerabilities.destroy', $item->id))->assertOk();
+});
+
+test('cant deleted because not found', function(){
+    $this->delete(route('vullnerabilities.destroy', 0))->assertStatus(404);
+});

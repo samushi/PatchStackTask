@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Vullnerabilitie;
 use Illuminate\Http\Request;
+use App\Repository\VullnerabilitiesRepository;
 
 class VullnerabilitiesController extends Controller
 {
+
+    public function __construct(private VullnerabilitiesRepository $repository){}
+
     /**
      * Display a listing of the resource.
      *
@@ -84,7 +88,6 @@ class VullnerabilitiesController extends Controller
      */
     public function destroy(Vullnerabilitie $vullnerability)
     {
-        // dd($vullnerability->toArray());
-        return true;
+        return $this->repository->delete($vullnerability->id);
     }
 }
