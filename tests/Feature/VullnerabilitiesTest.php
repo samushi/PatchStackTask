@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Http;
 
 use function Pest\Laravel\deleteJson;
 use function Pest\Laravel\postJson;
+use function Pest\Laravel\putJson;
 
 uses(RefreshDatabase::class);
 
@@ -43,8 +44,16 @@ test('cant deleted because not found', function(){
 });
 
 it('should create', function(){
-    $vullnerability = postJson(route('vullnerabilities.store'), [
+    postJson(route('vullnerabilities.store'), [
         'name'  => 'test',
         'description'   => 'lorem ipsume dolar'
+    ])->assertStatus(Response::HTTP_FOUND);
+});
+
+it('should update', function(){
+    $vullnerability = Vullnerabilitie::factory()->create();
+    putJson(route('vullnerabilities.update', $vullnerability->id), [
+        'name' => 'test update',
+        'description'   => 'test lorem'
     ])->assertStatus(Response::HTTP_FOUND);
 });

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateVullnerabilityRequest;
 use App\Http\Requests\UpdateVullnerabilityRequest;
 use App\Models\Vullnerabilitie;
-use Illuminate\Http\Request;
 use App\Repository\VullnerabilitiesRepository;
 
 class VullnerabilitiesController extends Controller
