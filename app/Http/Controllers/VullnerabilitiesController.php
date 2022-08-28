@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateVullnerabilityRequest;
+use App\Http\Requests\UpdateVullnerabilityRequest;
 use App\Models\Vullnerabilitie;
 use Illuminate\Http\Request;
 use App\Repository\VullnerabilitiesRepository;
@@ -37,9 +39,10 @@ class VullnerabilitiesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateVullnerabilityRequest $request) 
     {
-        //
+        $this->repository->create($request->validated());
+        return redirect()->route('vullnerabilities.index');
     }
 
     /**
@@ -75,9 +78,10 @@ class VullnerabilitiesController extends Controller
      * @param  \App\Models\Vullnerabilities  $vullnerability
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Vullnerabilitie $vullnerability)
+    public function update(UpdateVullnerabilityRequest $request, Vullnerabilitie $vullnerability)
     {
-        //
+        $this->repository->update($vullnerability->id, $request->validated());
+        return redirect()->route('vullnerabilities.edit', $vullnerability->id)->with('success', 'Vullnerability Has Been updated successfully');
     }
 
     /**

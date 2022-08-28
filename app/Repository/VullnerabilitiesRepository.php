@@ -24,11 +24,29 @@ class VullnerabilitiesRepository {
     }
 
     /**
+     * Create new Vullnerability
+     * @return Vullnerabilitie
+     */
+    public function create(array $data) : Vullnerabilitie
+    {
+        return $this->getModel()->create($data);
+    }
+
+    /**
      * Delete Vullnerability
      * @return bool
      */
     public function delete(int $id)
     {
         return $this->getById($id)->delete();
+    }
+
+    /**
+     * Update Vullnerability 
+     * @return bool
+     */
+    public function update(int $id, array $data) : bool
+    {
+        return $this->getById($id)->fill($data)->save();
     }
 }

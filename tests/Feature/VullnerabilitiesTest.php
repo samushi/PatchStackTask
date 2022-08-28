@@ -3,6 +3,11 @@
 use App\Models\Vullnerabilitie;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Database\Seeders\VullnerabilitiesSeeder;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Http;
+
+use function Pest\Laravel\deleteJson;
+use function Pest\Laravel\postJson;
 
 uses(RefreshDatabase::class);
 
@@ -25,15 +30,21 @@ test('check if vullnerability exist', function(){
 });
 
 test('check if vullnerability not exits', function(){
-    $this->get(route('vullnerabilities.show', 0))->assertStatus(404);
+    $this->get(route('vullnerabilities.show', 0))->assertStatus(Response::HTTP_NOT_FOUND);
 });
 
 it('will be deleted', function(){
-    $item = Vullnerabilitie::first();
-
-    $this->delete(route('vullnerabilities.destroy', $item->id))->assertOk();
+    $vullnerability = Vullnerabilitie::factory()->create();
+    deleteJson(route('vullnerabilities.destroy', $vullnerability->id))->assertStatus(Response::HTTP_OK);
 });
 
 test('cant deleted because not found', function(){
-    $this->delete(route('vullnerabilities.destroy', 0))->assertStatus(404);
+    $this->delete(route('vullnerabilities.destroy', 0))->assertStatus(Response::HTTP_NOT_FOUND);
+});
+
+it('should create', function(){
+    $vullnerability = postJson(route('vullnerabilities.store'), [
+        'name'  => 'test',
+        'description'   => 'lorem ipsume dolar'
+    ])->assertStatus(Response::HTTP_FOUND);
 });

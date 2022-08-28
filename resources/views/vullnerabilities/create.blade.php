@@ -14,7 +14,9 @@
       </div>
 
       <div class="w-full px-6 py-4 bg-white rounded shadow-md ring-1 ring-gray-900/10">
-        <form method="POST" action="#">
+
+        <form method="POST" action="{{ route('vullnerabilities.store') }}">
+          @csrf
           <!-- Name -->
           <div>
             <label class="block text-sm font-bold text-gray-700" for="name">
@@ -23,7 +25,11 @@
 
             <input
               class="block w-full mt-1 border-gray-300 rounded-md shadow-sm placeholder:text-gray-400 placeholder:text-right focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-              type="text" name="email" />
+              type="text" name="name" />
+
+              @error('name')
+                <div class="text-sm text-red-500 my-1">{{ $message }}</div>
+              @enderror
           </div>
 
           <!-- Description -->
@@ -34,6 +40,10 @@
             <textarea name="description"
               class="block w-full mt-1 border-gray-300 rounded-md shadow-sm placeholder:text-gray-400 placeholder:text-right focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               rows="4"></textarea>
+
+              @error('description')
+                  <div class="text-sm text-red-500 my-1">{{ $message }}</div>
+              @enderror
           </div>
 
           <div class="flex items-center justify-start mt-4 gap-x-2">
